@@ -12,7 +12,7 @@
 	</parent>
 
 	<groupId>com.altech</groupId>
-	<artifactId>store</artifactId>
+	<artifactId>electronic-store</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Altech Electronics Store</name>
 	<description>Java backend for electronics store checkout system</description>

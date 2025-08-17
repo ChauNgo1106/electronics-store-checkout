@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller("TestController")
-@RequestMapping("/test")
+@RequestMapping({"","/" ,"/test"})
 public class TestController {
 
-    @GetMapping("/OK")
+    @GetMapping()
     public ResponseEntity<String> test(){
         return ResponseEntity.ok("Ok");
     }
