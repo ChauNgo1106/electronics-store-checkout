@@ -6,4 +6,5 @@ import org.springframework.data.domain.Pageable;
 
 public interface ProductService {
     Product createProduct(Product product);
+    void deleteProduct(Long id);
 }

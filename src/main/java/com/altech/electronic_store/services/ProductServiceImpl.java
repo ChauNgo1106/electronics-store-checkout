@@ -2,10 +2,13 @@ package com.altech.electronic_store.services;
 
 import com.altech.electronic_store.model.Product;
 import com.altech.electronic_store.repositories.ProductRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -20,5 +23,11 @@ public class ProductServiceImpl implements ProductService{
     @Transactional
     public Product createProduct(Product product) {
         return productRepository.save(product);
+    }
+
+    @Override
+    @Transactional
+    public void deleteProduct(Long id){
+        productRepository.deleteById(id);
     }
 }
