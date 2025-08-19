@@ -28,7 +28,7 @@ public class AdminServiceTest {
     private DealRepository dealRepository;
 
     @InjectMocks
-    private AdminServiceImpl productService;
+    private AdminServiceImpl adminService;
 
     public AdminServiceTest() {
         MockitoAnnotations.openMocks(this);
@@ -45,7 +45,7 @@ public class AdminServiceTest {
                 .available(true)
                 .build();
         when(productRepository.save(any(Product.class))).thenReturn(product);
-        Product savedProduct = productService.createProduct(product);
+        Product savedProduct = adminService.createProduct(product);
         assertEquals("Laptop", savedProduct.getName());
         verify(productRepository, times(1)).save(product);
     }
@@ -53,7 +53,7 @@ public class AdminServiceTest {
     @Test
     void testCreateProductWithNull(){
         Product product = null;
-        Product savedProduct = productService.createProduct(product);
+        Product savedProduct = adminService.createProduct(product);
         assertNull(savedProduct);
     }
 
@@ -67,7 +67,7 @@ public class AdminServiceTest {
                 .available(false)
                 .build();
         when(productRepository.save(any(Product.class))).thenReturn(product);
-        Product savedProduct = productService.createProduct(product);
+        Product savedProduct = adminService.createProduct(product);
         assertFalse( savedProduct.isAvailable());
         verify(productRepository, times(1)).save(product);
     }
@@ -84,11 +84,11 @@ public class AdminServiceTest {
                 .available(true)
                 .build();
         when(productRepository.save(any(Product.class))).thenReturn(product);
-        Product savedProduct = productService.createProduct(product);
+        Product savedProduct = adminService.createProduct(product);
 
         Long productId = 1L;
         doNothing().when(productRepository).deleteById(productId);
-        productService.deleteProduct(productId);
+        adminService.deleteProduct(productId);
 
         Optional<Product> deletedProduct = productRepository.findById(productId);
         assertTrue(deletedProduct.isEmpty());
@@ -107,7 +107,7 @@ public class AdminServiceTest {
                 .available(true)
                 .build();
         when(productRepository.save(any(Product.class))).thenReturn(product);
-        Product savedProduct = productService.createProduct(product);
+        Product savedProduct = adminService.createProduct(product);
 
         Deal deal = Deal.builder()
                 .productId(savedProduct.getId())
@@ -116,7 +116,7 @@ public class AdminServiceTest {
                 .expiration(LocalDateTime.now().plusDays(7))
                 .build();
         when(dealRepository.save(any(Deal.class))).thenReturn(deal);
-        Deal savedDeal = productService.addDeal(deal);
+        Deal savedDeal = adminService.addDeal(deal);
 
         assertEquals(savedProduct.getId(), savedDeal.getProductId());
         assertEquals("PERCENTAGE_DISCOUNT", savedDeal.getType());
