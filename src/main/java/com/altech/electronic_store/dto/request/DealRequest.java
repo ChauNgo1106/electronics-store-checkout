@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class DealRequest {
     private Long productId;
     private String type;
-    private BigDecimal discount;
+    private Double discount;
     private LocalDateTime expiration;
 
     public boolean isExpired() {

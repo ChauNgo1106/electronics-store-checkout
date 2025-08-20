@@ -41,7 +41,7 @@ public class AdminServiceTest {
         Product product = Product.builder()
                 .name("Laptop")
                 .category("Electronics")
-                .price(BigDecimal.valueOf(999.99))
+                .price(999.99)
                 .stock(10)
                 .available(true)
                 .build();
@@ -63,7 +63,7 @@ public class AdminServiceTest {
         Product product = Product.builder()
                 .name("Iphone")
                 .category("Electronics")
-                .price(BigDecimal.valueOf(999.99))
+                .price(999.99)
                 .stock(0)
                 .available(false)
                 .build();
@@ -80,7 +80,7 @@ public class AdminServiceTest {
                 .id(1L)
                 .name("Laptop")
                 .category("Electronics")
-                .price(BigDecimal.valueOf(999.99))
+                .price(999.99)
                 .stock(10)
                 .available(true)
                 .build();
@@ -103,7 +103,7 @@ public class AdminServiceTest {
         Product product = Product.builder()
                 .name("Smartphone")
                 .category("Electronics")
-                .price(BigDecimal.valueOf(699.99))
+                .price(699.99)
                 .stock(30)
                 .available(true)
                 .build();
@@ -112,7 +112,7 @@ public class AdminServiceTest {
 
         Deal deal = Deal.builder()
                 .type("PERCENTAGE_DISCOUNT")
-                .discount(BigDecimal.valueOf(0.2))
+                .discount(0.2)
                 .expiration(LocalDateTime.now().plusDays(7))
                 .build();
         when(dealRepository.save(any(Deal.class))).thenReturn(deal);
@@ -130,7 +130,7 @@ public class AdminServiceTest {
     public void testAddExpiredDealFails(){
         Deal deal = Deal.builder()
                 .type("PERCENTAGE_DISCOUNT")
-                .discount(BigDecimal.valueOf(0.2))
+                .discount(0.2)
                 .expiration(LocalDateTime.now().minusDays(1))
                 .build();
         Deal savedDeal = dealRepository.save(deal);
