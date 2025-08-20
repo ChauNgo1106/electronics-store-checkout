@@ -1,9 +1,6 @@
 package com.altech.electronic_store.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,9 +18,14 @@ public class Deal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long productId;
+    @ManyToOne
+    private Product product;
     private String type;
     private BigDecimal discount;
     private LocalDateTime expiration;
+
+    public boolean isExpired() {
+        return expiration != null && expiration.isBefore(LocalDateTime.now());
+    }
 
 }

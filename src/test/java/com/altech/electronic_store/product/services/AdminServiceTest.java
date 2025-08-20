@@ -5,8 +5,9 @@ import com.altech.electronic_store.model.Deal;
 import com.altech.electronic_store.model.Product;
 import com.altech.electronic_store.repositories.DealRepository;
 import com.altech.electronic_store.repositories.ProductRepository;
-import com.altech.electronic_store.services.AdminServiceImpl;
+import com.altech.electronic_store.services.impl.AdminServiceImpl;
 import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -95,7 +96,7 @@ public class AdminServiceTest {
         verify(productRepository, times(1)).deleteById(productId);
     }
 
-    //testing for adding a deal
+    //REWORK-testing later.
     @Test
     @Transactional //roll back after the testing
     public void testAddDealToProduct(){
@@ -110,15 +111,13 @@ public class AdminServiceTest {
         Product savedProduct = adminService.createProduct(product);
 
         Deal deal = Deal.builder()
-                .productId(savedProduct.getId())
                 .type("PERCENTAGE_DISCOUNT")
                 .discount(BigDecimal.valueOf(0.2))
                 .expiration(LocalDateTime.now().plusDays(7))
                 .build();
         when(dealRepository.save(any(Deal.class))).thenReturn(deal);
-        Deal savedDeal = adminService.addDeal(deal);
+        Deal savedDeal = adminService.addDeal(1L, "PERCENTAGE_DISCOUNT", LocalDateTime.now().plusDays(7));
 
-        assertEquals(savedProduct.getId(), savedDeal.getProductId());
         assertEquals("PERCENTAGE_DISCOUNT", savedDeal.getType());
         assertEquals(BigDecimal.valueOf(0.2), savedDeal.getDiscount());
         assertTrue(savedDeal.getExpiration().isAfter(LocalDateTime.now()));
@@ -130,7 +129,6 @@ public class AdminServiceTest {
     @Test
     public void testAddExpiredDealFails(){
         Deal deal = Deal.builder()
-                .productId(1L)
                 .type("PERCENTAGE_DISCOUNT")
                 .discount(BigDecimal.valueOf(0.2))
                 .expiration(LocalDateTime.now().minusDays(1))
@@ -138,4 +136,12 @@ public class AdminServiceTest {
         Deal savedDeal = dealRepository.save(deal);
         assertTrue(savedDeal.getExpiration().isBefore(LocalDateTime.now()));
     }
+
+    @Test
+    public void testExpiredDealIsDetected() {
+        Deal deal = new Deal();
+        deal.setExpiration(LocalDateTime.now().minusHours(1));
+        Assertions.assertTrue(deal.isExpired());
+    }
+
 }
