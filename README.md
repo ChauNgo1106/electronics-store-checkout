@@ -6,7 +6,9 @@
 + Java JDK 17
 
 ## 🚀 Start the App
-Run the script
+Run the script in Git Bash (Be careful! It will wipe out all running docker containers and remove docker's images on 
+your local)
+
 ```bash
 .\runDocker.sh
 ```
@@ -19,3 +21,13 @@ mvn test
 
 # OR, alternatively, you can run the following command to use Maven Wrapper
 ./mvnw test
+```
+## [OPTIONAL] Don't want to use Docker
+```bash
+./mvnw clean package
+./mvnw spring-boot:run
+```
+
+## Endpoints
+You can easily find a full details about APIs via this link after running successfully:
+http://localhost:8080/swagger-ui.html
