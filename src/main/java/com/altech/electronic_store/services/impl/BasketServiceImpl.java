@@ -29,7 +29,9 @@ public class BasketServiceImpl implements BasketService{
     @Transactional
     @Override
     public void addToBasket(Long productId, int qty) {
-        Product p = productRepo.findById(productId).orElseThrow();
+        Product p = productRepo.findById(productId).orElseThrow(
+                () -> new RuntimeException("Product with id " + productId + " not found")
+        );
         if (p.getStock() < qty) throw new RuntimeException("Insufficient stock");
         p.setStock(p.getStock() - qty);
         productRepo.save(p);

@@ -1,7 +1,5 @@
 package com.altech.electronic_store.services;
 
-import com.altech.electronic_store.dto.request.DealRequest;
-import com.altech.electronic_store.enums.DealType;
 import com.altech.electronic_store.model.Deal;
 import com.altech.electronic_store.model.Product;
 import com.altech.electronic_store.repositories.DealRepository;
@@ -9,16 +7,12 @@ import com.altech.electronic_store.repositories.ProductRepository;
 import com.altech.electronic_store.services.impl.DealServiceImpl;
 import com.altech.electronic_store.services.impl.ProductServiceImpl;
 import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
