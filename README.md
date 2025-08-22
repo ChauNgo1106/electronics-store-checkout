@@ -10,7 +10,7 @@ Run the script in Git Bash (Be careful! It will wipe out all running docker cont
 your local)
 
 ```bash
-.\runDocker.sh
+./runDocker.sh
 ```
 
 ## [OPTIONAL] Run all testing cases
