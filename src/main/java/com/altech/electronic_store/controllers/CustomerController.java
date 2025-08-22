@@ -16,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+
 @Tag(name = "Customer", description = "Customer operation APIs")
 @RestController
 @RequestMapping("/api/v1/customer")
@@ -39,17 +41,17 @@ public class CustomerController {
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(description = "Remove product from basket")
-    @GetMapping()
-    public ResponseEntity<Page<Product>> getProducts(
+    @Operation(description = "Filter products based on y category, price range, or availability.")
+    @GetMapping("/products/filter")
+    public Page<Product> filterProducts(
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) Double minPrice,
+            @RequestParam(required = false) Double maxPrice,
+            @RequestParam(required = false) boolean available,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortDir
-    ){
-        Sort sort = sortDir.equals("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
-        Pageable pageable = PageRequest.of(page, size, sort);
-        return ResponseEntity.status(HttpStatus.OK).body(productService.getAllProducts(pageable));
+            @RequestParam(defaultValue = "5") int size
+    ) {
+        return productService.filterProducts(category, minPrice, maxPrice, available, page, size);
     }
 
     @GetMapping("/receipt")
