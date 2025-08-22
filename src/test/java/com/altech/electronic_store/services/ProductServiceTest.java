@@ -3,6 +3,7 @@ package com.altech.electronic_store.services;
 import com.altech.electronic_store.model.Product;
 import com.altech.electronic_store.repositories.ProductRepository;
 import com.altech.electronic_store.services.impl.ProductServiceImpl;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,6 +17,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@Transactional
 public class ProductServiceTest {
 
     @Mock
@@ -46,7 +48,6 @@ public class ProductServiceTest {
         assertNull(savedProduct);
     }
 
-    // delete product by ID testing
     @Test
     void testDeleteProduct(){
         Product product = Product.builder()

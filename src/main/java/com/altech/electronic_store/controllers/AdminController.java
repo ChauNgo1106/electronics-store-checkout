@@ -52,6 +52,10 @@ public class AdminController {
     @PostMapping("/deals")
     public ResponseEntity<Deal> addDeal(@RequestBody DealRequest dealRequest) {
         Deal deal = DealMapping.toDeal(dealRequest);
-        return ResponseEntity.status(HttpStatus.OK).body(dealService.addDeal(deal));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(dealService.addDeal(deal));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
