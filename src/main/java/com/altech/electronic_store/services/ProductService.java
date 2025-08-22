@@ -7,9 +7,9 @@ import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
 
-public interface AdminService {
+public interface ProductService {
     Product createProduct(Product product);
     void deleteProduct(Long id);
     Page<Product> getAllProducts(Pageable pageable);
-    Deal addDeal(Long productId, String type, LocalDateTime expiration);
+//    Deal addDeal(Long productId, String type, LocalDateTime expiration);
 }

@@ -1,5 +1,6 @@
 package com.altech.electronic_store.model;
 
+import com.altech.electronic_store.enums.DealType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,10 +19,8 @@ public class Deal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    private Product product;
+    private Long productId;
     private String type;
-    private Double discount;
     private LocalDateTime expiration;
 
     public boolean isExpired() {

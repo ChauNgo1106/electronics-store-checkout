@@ -1,21 +1,19 @@
 package com.altech.electronic_store.model;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class BasketItem {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private Long productId;
+@AllArgsConstructor
+public class ReceiptItem {
+    private String productName;
     private int quantity;
-
+    private Double unitPrice;
+    private Double discount;
+    private Double finalPrice;
 }
+
